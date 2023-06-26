@@ -11,6 +11,7 @@ function AppComponent() {
   const [searchGifs, setSearchGifs] = useState([]);
   const [random, setRandom] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [rating, setRating] = useState("");
 
   useEffect(() => {
     async function getTrendingGifs() {
@@ -46,11 +47,11 @@ function AppComponent() {
     getRandomGif();
   });
 
-  const getSearchGifs = async (searchTerm) => {
+  const getSearchGifs = async (searchTerm, rating) => {
     if (searchTerm != "") {
       try {
         let searchResults = await axios.get(
-          `http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${api_KEY}`
+          `http://api.giphy.com/v1/gifs/search?q=${searchTerm}&rating=${rating}&api_key=${api_KEY}`
         );
 
         setSearchGifs(searchResults.data.data);
@@ -67,6 +68,8 @@ function AppComponent() {
           searchArray={searchGifs}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          rating={rating}
+          setRating={setRating}
           getSearch={getSearchGifs}
         />
       </div>
